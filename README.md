@@ -16,5 +16,5 @@ To compile, use `make`.
 To generate the rainbow table, use `./ids <database filename> --generate`. Depending on disk and CPU speeds, this may take a few minutes (or even hours), but only needs to be done once. This will produce a 24GB file.
 
 ### Search
-To decode an ID, use `ids <database> <poster id>`. All possible IPv4 addresses will be printed to standard output line by line. Again depending on CPU and disk speeds, this may take a few minutes.
+To decode an ID, use `./ids <database> <poster id>`. All possible IPv4 addresses will be printed to standard output line by line. Again depending on CPU and disk speeds, this may take a few minutes.
 
