@@ -51,8 +51,8 @@ main(int argc, char *argv[])
 {	
 	
 	if(argc != 3 || strcmp(argv[1], "--help") == 0) {
-		fprintf(stderr, "Usage: ids <database> <poster id>\n");
-		fprintf(stderr, "   or: ids <database> --generate\n");
+		fprintf(stderr, "Usage: ids <database> <poster id>\n"
+						"   or: ids <database> --generate\n");
 		exit(0);
 	}
 	
@@ -62,7 +62,7 @@ main(int argc, char *argv[])
 		// generate rainbow table
 		FILE *fp = fopen(database, "w");
 		if(fp == NULL) {
-			fprintf(stderr, "Error opening %s for writing!\n", database);
+			fprintf(stderr, "Could not open %s for writing!\n", database);
 			return 1;
 		}
 		
@@ -70,7 +70,30 @@ main(int argc, char *argv[])
 		
 		unsigned long x;
 		char *ip;
-		for(x = 16843009; x < 4294967295 ; x++) {
+		
+		// 3741253376
+		
+		// - 16777216
+		// - 16777216
+		// - 1048576
+		// - 65536
+		
+		for(x = 16843009; x <= 3758096384 ; x++) {
+			if(x == 167772160) {
+				// skip 10.0.0.0/8
+				x = 184549376;
+			} else if(x == 2130706432) {
+				// skip 127.0.0.0/8
+				x = 2147483648;
+			} else if(x == 2886729728) {
+				// skip 172.16.0.0/12
+				x = 2887778304;
+			} else if(x == 3232235520) {
+				// skip 192.168.0.0/16
+				x = 3232301056;
+			}
+			
+			
 			ip = ultoip(x);
 			
 			// create hash
@@ -91,14 +114,14 @@ main(int argc, char *argv[])
 		}
 	
 		fclose(fp);	
-	} else if(strlen(argv[1]) == 6) {
+	} else if(strlen(argv[2]) == 6) {
 		char *hash = malloc(7);
 		hash[6] = 0;
 		
 		// open rainbow table for reading
 		FILE *fp = fopen(database, "r");
 		if(fp == NULL) {
-			fprintf(stderr, "Error opening %s for reading!\n", database);
+			fprintf(stderr, "Could not open %s for reading!\n", database);
 			return 1;
 		}
 		
@@ -107,6 +130,20 @@ main(int argc, char *argv[])
 		// iterate through ipv4 address space
 		unsigned long i = 16843009;
 		while(!feof(fp)) {
+			if(i == 167772160) {
+				// skip 10.0.0.0/8
+				i = 184549376;
+			} else if(i == 2130706432) {
+				// skip 127.0.0.0/8
+				i = 2147483648;
+			} else if(i == 2886729728) {
+				// skip 172.16.0.0/12
+				i = 2887778304;
+			} else if(i == 3232235520) {
+				// skip 192.168.0.0/16
+				i = 3232301056;
+			}
+			
 			fread(hash, 1, 6, fp);
 			// test hash
 			if(strncmp(hash, search_hash, 6) == 0) {
@@ -118,7 +155,7 @@ main(int argc, char *argv[])
 
 		fclose(fp);
 	} else {
-		fprintf(stderr, "Error: Poster ID must be 6 characters (hexadecimal)!");
+		fprintf(stderr, "Error: Poster ID must be 6 characters (hexadecimal)!\n");
 		return 1;
 	}
 }
