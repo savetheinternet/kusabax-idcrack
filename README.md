@@ -1,5 +1,5 @@
 ## Requirements
-1.	24GB disk space for rainbow table.
+1.	21GB disk space for rainbow table.
 2.	OpenSSL library.
 
 ## Background
@@ -22,7 +22,7 @@ After excluding multicast, private and reserved space, there are 3 706 584 831 a
 To compile, use `make`.
 
 ### Generation
-To generate the rainbow table, use `./ids <database filename> --generate`. Depending on disk and CPU speeds, this may take a few minutes (or even hours), but only needs to be done once. This will produce a 24GB file.
+To generate the rainbow table, use `./ids <database filename> --generate`. Depending on disk and CPU speeds, this may take a few minutes (or even hours), but only needs to be done once. This will produce a 21GB file.
 
 ### Search
 To decode an ID, use `./ids <database> <poster id>`. All possible IPv4 addresses will be printed to standard output line by line. Again depending on CPU and disk speeds, this may take a few minutes.
