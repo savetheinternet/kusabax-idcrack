@@ -93,7 +93,6 @@ main(int argc, char *argv[])
 				x = 3232301056;
 			}
 			
-			
 			ip = ultoip(x);
 			
 			// create hash
@@ -110,7 +109,9 @@ main(int argc, char *argv[])
 			}
 			
 			// append hash to rainbow table
-			fwrite(hash, 1, 6, fp);
+			while(fwrite(hash, 1, 6, fp) != 6) {
+				fprintf(stderr, "For some reason, writing derped.\n");
+			}
 		}
 	
 		fclose(fp);	
