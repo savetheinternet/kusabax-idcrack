@@ -15,6 +15,7 @@ In short, this simple program will turn a standard Kusaba X "Poster ID" into ~25
  - 127.0.0.0/8
  - 172.16.0.0/12
  - 192.168.0.0/16
+ 
 After excluding multicast, private and reserved space, there is 3 706 584 831 IP addresses (~14% deduction).
 
 ## Usage
