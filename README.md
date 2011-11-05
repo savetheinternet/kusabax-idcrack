@@ -3,11 +3,11 @@
 2.	OpenSSL library.
 
 ## Background
-Currently, Kusaba X and a lot of Kusaba X ports use a very insecure algorithm for calculating "Poster IDs". That is, a semi-unique ID used as a means of identification. Unfortunately, the developers must have overlooked the major flaw in the algorithm when developing the function. The poster IDs are calculated by simply truncating an (unsalted) MD5 hash of the dotted decimal representation of the user's IP address to 6 characters. As there are 2<sup>32</sup> (before excluding multicast, private and reserved space) IPv4 addresses and only 2<sup>24</sup> possible IDs, it makes it possible (and incredibly easy) to narrow an ID down to ~256 IP addresses. The rest could possibly be eliminated using GeoIP or any other means.
+Currently, Kusaba X and a lot of Kusaba X ports use a very insecure algorithm for calculating "Poster IDs". That is, a semi-unique ID used as a means of identification. Unfortunately, the developers must have overlooked the major flaw in the algorithm when developing the function. The poster IDs are calculated by simply truncating an (unsalted) MD5 hash of the dotted decimal representation of the user's IP address to 6 characters. As there are 2<sup>32</sup> IPv4 addresses and only 2<sup>24</sup> possible IDs, it makes it possible (and incredibly easy) to narrow an ID down to ~256 IP addresses. Ignoring multicast, private and reserved address spaces (see below) brings it down to ~221 possible addresses. The rest could possibly be eliminated using GeoIP or any other means.
 
 Although it may seem unpractical because of the time and processing power required to test a hash against every single IP address, it could be done in just minutes with a large rainbow table.
 
-In short, this simple program will turn a standard Kusaba X "Poster ID" into ~256 possible IPv4 addresses.
+In short, this simple program will turn a standard Kusaba X "Poster ID" into ~221 possible IPv4 addresses.
 
 ## Excluded Ranges
  - Class D and E addresses
